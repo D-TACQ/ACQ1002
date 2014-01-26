@@ -9,7 +9,6 @@ TOP=..
 rm -Rf opkg/*
 mkdir -p opkg/usr/local/bin opkg/usr/local/init opkg/usr/local/lib/modules
 
-cp ${TOP}/ACQ2006/SHARE/bin/* opkg/usr/local/bin
 cp ${MODEL}_init_gpio opkg/usr/local/bin
 cp ${MODEL}.map   opkg/usr/local/
 cp ${MODEL}.init opkg/usr/local/init
