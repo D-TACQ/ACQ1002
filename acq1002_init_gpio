@@ -83,7 +83,7 @@ let GPIO_XXO2=$GPIO_XX1+14
 
 CHIP420=$(get_gpiochip 4 0020)
 let GPIO_CELF1=${CHIP420#gpiochip*}
-let GPIO_CELF2=$GPIO_CELF1+1
+let GPIO_CELF2=$GPIO_CELF1+7
 
 for pin in $(seq $GPIO_MB1 $GPIO_MB2) $(seq $GPIO_XX1 $GPIO_XX2) \
 		$(seq $GPIO_CELF1 $GPIO_CELF2)
@@ -140,7 +140,7 @@ mkln $(gpioXXX  4) LED/CLK_G 		AL
 mkln $(gpioXXX  5) LED/CLK_R 		AL
 
 mkln $(gpioXXX  6) CLK/SYNC_SET_OUT	
-mkln $(gpioXXX  7) CLK/SYNC_SET_IN	AL
+mkln $(gpioXXX  7) CLK/SYNC_SET_IN     
 mkln $(gpioXXX  8) CLK/MB/ICS_CLK2_OE
 mkln $(gpioXXX  9) CLK/OSC_X_OE 	AL
 mkln $(gpioXXX 10) CLK/OSC_X_CLK_OE	AL
@@ -166,6 +166,11 @@ gpioCELFX() {
 mkln $(gpioCELFX 0)	LED/FMC2_G	AL
 mkln $(gpioCELFX 1)	LED/FMC2_R	AL
   
+
+echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_IN as INPUT 0
+set.sys /dev/gpio/CLK/SYNC_SET_IN 0
+echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_OUT as OUTPUT 1
+set.sys /dev/gpio/CLK/SYNC_SET_OUT 1
 	
 clear_leds() {	
 	for LED in /dev/gpio/LED/*
