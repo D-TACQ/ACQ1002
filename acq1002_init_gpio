@@ -163,9 +163,16 @@ gpioCELFX() {
 	echo gpio$lgp	
 }
 
+
 mkln $(gpioCELFX 0)	LED/FMC2_G	AL
 mkln $(gpioCELFX 1)	LED/FMC2_R	AL
-  
+
+mkdir -p /dev/gpio/CELF
+for dx in $(seq 0 7)
+do
+	mkln $(gpioCELFX $dx) CELF/d$dx
+done
+
 
 echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_IN as INPUT 0
 set.sys /dev/gpio/CLK/SYNC_SET_IN 0
@@ -227,4 +234,19 @@ do
 		done;;
 	esac					
 done
+
+# finally hook the CELF service
+
+mkdir -p /etc/acq400/12
+cd /etc/acq400/12
+for file in /dev/hwmon/3/in? /dev/hwmon/3/temp
+do
+        ln -s $file 
+done
+for file in /dev/gpio/CELF/d?
+do
+        ln -s $file
+done
+
+# CELF service #12 is activated as part of inetd, acq420 package...
 
