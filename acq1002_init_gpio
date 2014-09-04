@@ -22,7 +22,7 @@ let GPIO_MB2=$GPIO_MB1+23
 CHIP123=$(get_gpiochip 1 0023)
 let GPIO_XX1=${CHIP123#gpiochip*}
 let GPIO_XX2=$GPIO_XX1+23
-let GPIO_XXO2=$GPIO_XX1+14
+let GPIO_XXO2=$GPIO_XX1+15
 
 CHIP420=$(get_gpiochip 4 0020)
 let GPIO_CELF1=${CHIP420#gpiochip*}
