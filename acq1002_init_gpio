@@ -89,8 +89,12 @@ mkln $(gpioXXX  9) CLK/OSC_X_OE 	AL
 mkln $(gpioXXX 10) CLK/OSC_X_CLK_OE	AL
 mkln $(gpioXXX 11) CLK/FP_CLK_OE 	AL
 mkln $(gpioXXX 12) CLK/FP_OE		AL
-mkln $(gpioXXX 13) 15VA_EN		AL
-mkln $(gpioXXX 14) Si570_OE
+mkln $(gpioXXX 13) 15VA_EN			AL
+mkln $(gpioXXX 14) CLK/Si570_OE
+mkln $(gpioXXX 15) CLK/ZCLK_OE		AL
+
+echo ZCLK DISABLE
+set.sys /dev/gpio/CLK/ZCLK_OE 0
 
 mkln $(gpioXXX 16) fmc1_present		AL
 mkln $(gpioXXX 17) fmc2_present		AL
