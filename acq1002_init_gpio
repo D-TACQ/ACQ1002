@@ -118,6 +118,7 @@ mkdir -p /dev/gpio/CELF
 for dx in $(seq 0 7)
 do
 	mkln $(gpioCELFX $dx) CELF/d$dx
+	ln -s $PWD/$(gpioCELFX $dx)/direction CELF/.direction.d$dx
 done
 
 
