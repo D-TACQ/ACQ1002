@@ -24,9 +24,15 @@ let GPIO_XX1=${CHIP123#gpiochip*}
 let GPIO_XX2=$GPIO_XX1+23
 let GPIO_XXO2=$GPIO_XX1+15
 
-CHIP420=$(get_gpiochip 4 0020)
-let GPIO_CELF1=${CHIP420#gpiochip*}
-let GPIO_CELF2=$GPIO_CELF1+7
+if [ -e /sys/bus/i2c/devices/4-0020/gpio ]; then
+	CHIP420=$(get_gpiochip 4 0020)
+	let GPIO_CELF1=${CHIP420#gpiochip*}
+	let GPIO_CELF2=$GPIO_CELF1+7
+else
+	echo WARNING: CELF DIO not found
+	let GPIO_CELF1=0
+	let GPIO_CELF2=-1
+fi
 
 for pin in $(seq $GPIO_MB1 $GPIO_MB2) $(seq $GPIO_XX1 $GPIO_XX2) \
 		$(seq $GPIO_CELF1 $GPIO_CELF2)
@@ -111,17 +117,18 @@ gpioCELFX() {
 }
 
 
-mkln $(gpioCELFX 0)	LED/FMC2_G	AL
-mkln $(gpioCELFX 1)	LED/FMC2_R	AL
+if [ "x$CHIP420" != "x" ]; then
+	mkln $(gpioCELFX 0)	LED/FMC2_G	AL
+	mkln $(gpioCELFX 1)	LED/FMC2_R	AL
 
-mkdir -p /dev/gpio/CELF
-for dx in $(seq 0 7)
-do
-	mkln $(gpioCELFX $dx) CELF/d$dx
-	ln -s $PWD/$(gpioCELFX $dx)/direction /dev/gpio/CELF/.direction.d$dx
-	ln -s $PWD/$(gpioCELFX $dx)/direction /dev/gpio/CELF/.direction.d$dx
-	ln -s $PWD/$(gpioCELFX $dx)/active_low /dev/gpio/CELF/.active_low.d$dx
-done
+	mkdir -p /dev/gpio/CELF
+	for dx in $(seq 0 7)
+	do
+		mkln $(gpioCELFX $dx) CELF/d$dx
+		ln -s $PWD/$(gpioCELFX $dx)/direction /dev/gpio/CELF/.direction.d$dx	
+		ln -s $PWD/$(gpioCELFX $dx)/active_low /dev/gpio/CELF/.active_low.d$dx
+	done
+fi
 
 
 echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_IN as INPUT 0
@@ -132,6 +139,7 @@ set.sys /dev/gpio/CLK/SYNC_SET_OUT 1
 common_end	
 
 # finally hook the CELF service
+
 
 mkdir -p /etc/acq400/3
 cd /etc/acq400/3
