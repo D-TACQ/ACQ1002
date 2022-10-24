@@ -143,4 +143,4 @@ done
 
 # CELF service #3 is activated as part of inetd, acq420 package...
 
-echo "++ acq1002_init_gpio done"
+echo "++ acq1002_init_gpio_nocelf done"
