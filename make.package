@@ -12,7 +12,7 @@ mkdir -p opkg/usr/local/bin \
 	opkg/usr/share
 
 cp ${MODEL}_init_gpio opkg/usr/local/bin
-cp ${MODEL}.map   opkg/usr/local/
+cp ${MODEL}*.map   opkg/usr/local/
 cp ${MODEL}.init opkg/usr/local/init
 cp -a doc opkg/usr/share
 
