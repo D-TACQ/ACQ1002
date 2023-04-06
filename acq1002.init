@@ -1,7 +1,8 @@
 #!/bin/sh
 
-source /tmp/u-boot_env
-MB_MODEL=$(basename ${devicetree_image%*.dtb})
+#source /tmp/u-boot_env
+#MB_MODEL=$(basename ${devicetree_image%*.dtb})
+MB_MODEL=acq1002
 
 /usr/local/bin/acq1002_init_gpio $MB_MODEL
 
