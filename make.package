@@ -7,7 +7,7 @@ MODEL=acq1002
 TOP=..
 
 rm -Rf opkg/*
-mkdir -p opkg/usr/local/bin \
+mkdir -p release opkg/usr/local/bin \
 	opkg/usr/local/init opkg/usr/local/lib/modules \
 	opkg/usr/share
 
