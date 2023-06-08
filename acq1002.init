@@ -1,8 +1,13 @@
 #!/bin/sh
 
-#source /tmp/u-boot_env
-#MB_MODEL=$(basename ${devicetree_image%*.dtb})
-MB_MODEL=acq1002
+[ -e /mnt/local/sysconfig/acq400.sh ] && source /mnt/local/sysconfig/acq400.sh
+
+if [ ! -z $ACQ1002_MB_MODEL_OVERRIDE ]; then
+	MB_MODEL=$ACQ1002_MB_MODEL_OVERRIDE
+else
+	source /tmp/u-boot_env
+	MB_MODEL=$(basename ${devicetree_image%*.dtb})
+fi
 
 /usr/local/bin/acq1002_init_gpio $MB_MODEL
 
