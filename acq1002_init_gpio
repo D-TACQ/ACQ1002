@@ -128,6 +128,9 @@ if [ "x$CHIP420" != "x" ]; then
 		ln -s $PWD/$(gpioCELFX $dx)/direction /dev/gpio/CELF/.direction.d$dx	
 		ln -s $PWD/$(gpioCELFX $dx)/active_low /dev/gpio/CELF/.active_low.d$dx
 	done
+else
+	echo 0 > /dev/gpio/LED/FMC2_G
+	echo 0 > /dev/gpio/LED/FMC2_R
 fi
 
 
